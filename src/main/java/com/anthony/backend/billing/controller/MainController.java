@@ -18,7 +18,7 @@ public class MainController {
 
     @GetMapping("/")
     public ResponseEntity<?> main() {
-        return ResponseEntity.status(HttpStatus.OK).body("Server is running.");
+        return ResponseEntity.status(HttpStatus.OK).body("Server is running!!");
     }
 
 }
