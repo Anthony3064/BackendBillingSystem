@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,10 +41,12 @@ public class User implements Serializable {
     @Column(name = "email", nullable = false)
     private String email = null;
 
-    @Column(name = "rol", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "rol", nullable = false)
     private Detail rol = null;
 
-    @Column(name = "status", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "status", nullable = false)
     private Detail status = null;
 
     public long getId() {
