@@ -4,19 +4,19 @@
  */
 package com.anthony.backend.billing.service.implement;
 
-import com.anthony.backend.billing.entity.Master;
+import com.anthony.backend.billing.entity.Detail;
 import java.util.List;
 
 /**
  *
  * @author anthony
  */
-public interface IMaster {
+public interface IDetail {
 
-    public boolean save(Master master);
+    public Detail findByCodGeneral(String codGeneral);
 
-    public Master findByCodGeneral(String codGeneral);
+    public List<Detail> findAllDetailsByMasterCodGeneral(String codGeneral);
 
-    public List<Master> findAllMaster();
+    public boolean save(Detail detail);
 
 }

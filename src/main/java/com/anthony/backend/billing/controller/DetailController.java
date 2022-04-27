@@ -4,8 +4,8 @@
  */
 package com.anthony.backend.billing.controller;
 
-import com.anthony.backend.billing.entity.Master;
-import com.anthony.backend.billing.service.MasterService;
+import com.anthony.backend.billing.entity.Detail;
+import com.anthony.backend.billing.service.DetailService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,25 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
  * @author anthony
  */
 @RestController
-@RequestMapping("/master")
-public class MasterController {
+@RequestMapping("/detail")
+public class DetailController {
 
     @Autowired
-    private MasterService service;
+    private DetailService service;
 
     @PostMapping("/save")
-    public ResponseEntity<?> save(@RequestBody Master master) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(master));
+    public ResponseEntity<?> save(@RequestBody Detail detail) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.save(detail));
     }
 
     @GetMapping("/findByCodGeneral")
-    public ResponseEntity<Master> findByCodGeneral(@RequestParam String codGeneral) {
+    public ResponseEntity<Detail> findByCodGeneral(@RequestParam String codGeneral) {
         return ResponseEntity.status(HttpStatus.OK).body(service.findByCodGeneral(codGeneral));
     }
 
-    @GetMapping("/findAllMaster")
-    public ResponseEntity<List<Master>> findAllMaster() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAllMaster());
+    @GetMapping("/findAllByMasterCodGeneral")
+    public ResponseEntity<List<Detail>> findAllDetailsByMasterCodGeneral(@RequestParam String codGeneral) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllDetailsByMasterCodGeneral(codGeneral));
     }
 
 }

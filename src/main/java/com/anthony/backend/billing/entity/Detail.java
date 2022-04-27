@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,8 +38,12 @@ public class Detail implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "master", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "master", nullable = false)
     private Master master;
+
+    @Column(name = "visible", nullable = false)
+    private boolean visible;
 
     public long getId() {
         return id;
@@ -77,6 +83,14 @@ public class Detail implements Serializable {
 
     public void setMaster(Master master) {
         this.master = master;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
 }

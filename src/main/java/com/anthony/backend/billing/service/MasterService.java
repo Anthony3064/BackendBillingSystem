@@ -5,6 +5,8 @@
 package com.anthony.backend.billing.service;
 
 import com.anthony.backend.billing.entity.Master;
+import com.anthony.backend.billing.exception.BadRequestException;
+import com.anthony.backend.billing.exception.NotFoundException;
 import com.anthony.backend.billing.repository.MasterRepository;
 import com.anthony.backend.billing.service.implement.IMaster;
 import java.util.List;
@@ -22,39 +24,54 @@ public class MasterService implements IMaster {
     MasterRepository repository;
 
     @Override
-    public boolean save(Master master) throws Exception {
+    public boolean save(Master master) {
         boolean saved = false;
-        try {
-            repository.save(master);
-            saved = true;
-        } catch (Exception e) {
-            throw new Exception("Save fail" + e.getMessage());
+
+        if (master != null) {
+            Master masterSaved = repository.save(master);
+
+            if (masterSaved != null) {
+                saved = true;
+            } else {
+                throw new BadRequestException("Error saving master.");
+            }
+        } else {
+            throw new BadRequestException("Master is required.");
         }
+
         return saved;
     }
 
     @Override
-    public Master findByCodGeneral(String codGeneral) throws Exception {
+    public Master findByCodGeneral(String codGeneral) {
 
-        try {
-            if (codGeneral != null && !codGeneral.isEmpty()) {
-                return repository.findByCodGeneral(codGeneral);
+        if (codGeneral != null && !codGeneral.isEmpty()) {
+
+            Master master = repository.findByCodGeneral(codGeneral);
+
+            if (master != null) {
+                return master;
             } else {
-                throw new Exception("Not found data");
+                throw new NotFoundException("No found data.");
             }
-        } catch (Exception e) {
-            throw new Exception("Error " + e.getMessage());
+
+        } else {
+            throw new BadRequestException("CodGeneral is required.");
         }
 
     }
 
     @Override
-    public List<Master> findAllMaster() throws Exception {
-        try {
-            return repository.findAll();
-        } catch (Exception e) {
-            throw new Exception("Not found data.");
+    public List<Master> findAllMaster() {
+
+        List<Master> masters = repository.findAll();
+
+        if (masters != null && !masters.isEmpty()) {
+            return masters;
+        } else {
+            throw new BadRequestException("CodGeneral is required.");
         }
+
     }
 
 }
