@@ -10,6 +10,7 @@ import com.anthony.backend.billing.exception.NotFoundException;
 import com.anthony.backend.billing.repository.UserRepository;
 import com.anthony.backend.billing.service.implement.IUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class UserService implements IUser {
     @Autowired
     private UserRepository repository;
 
+    @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -69,6 +71,25 @@ public class UserService implements IUser {
 
             } else {
                 throw new NotFoundException("No found user");
+            }
+
+        } else {
+            throw new BadRequestException("Username is required");
+        }
+
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+
+        if (userName != null && !userName.isEmpty()) {
+
+            User userFound = repository.findByUserName(userName);
+
+            if (userFound != null) {
+                return userFound;
+            } else {
+                throw new NotFoundException("No found data");
             }
 
         } else {

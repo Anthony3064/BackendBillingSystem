@@ -14,6 +14,8 @@ public interface IUser {
 
     public boolean save(User user);
 
+    public User findByUserName(String userName);
+
     public User login(String userName, String password);
 
 }
