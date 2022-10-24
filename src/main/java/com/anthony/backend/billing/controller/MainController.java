@@ -4,16 +4,15 @@
  */
 package com.anthony.backend.billing.controller;
 
-import com.anthony.backend.billing.exception.NotFoundException;
-import com.anthony.backend.billing.security.model.AuthenticationRequest;
-import com.anthony.backend.billing.security.model.AuthenticationResponse;
 import com.anthony.backend.billing.security.service.MyUserDetailsService;
 import com.anthony.backend.billing.security.util.JwtUtil;
+import com.billing_system_model.exception.NotFoundException;
+import com.billing_system_model.security.AuthenticationRequest;
+import com.billing_system_model.security.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;

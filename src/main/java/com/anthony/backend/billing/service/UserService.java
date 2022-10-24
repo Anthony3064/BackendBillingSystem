@@ -5,10 +5,11 @@
 package com.anthony.backend.billing.service;
 
 import com.anthony.backend.billing.entity.User;
-import com.anthony.backend.billing.exception.BadRequestException;
-import com.anthony.backend.billing.exception.NotFoundException;
 import com.anthony.backend.billing.repository.UserRepository;
 import com.anthony.backend.billing.service.implement.IUser;
+import com.billing_system_model.exception.BadCredentialsException;
+import com.billing_system_model.exception.BadRequestException;
+import com.billing_system_model.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,9 +54,9 @@ public class UserService implements IUser {
     }
 
     @Override
-    public User login(String userName, String password) {
+    public User login(String userName, String password) throws BadCredentialsException, NotFoundException, BadRequestException {
 
-        if (userName != null && !userName.isEmpty()) {
+        if (userName != null && !userName.isEmpty() && password != null && !password.isEmpty()) {
 
             User userFound = this.repository.findByUserName(userName);
 
@@ -66,7 +67,7 @@ public class UserService implements IUser {
                 if (userValid) {
                     return userFound;
                 } else {
-                    throw new NotFoundException("Username or password is incorrect");
+                    throw new BadCredentialsException("Username or password is incorrect");
                 }
 
             } else {
@@ -74,7 +75,7 @@ public class UserService implements IUser {
             }
 
         } else {
-            throw new BadRequestException("Username is required");
+            throw new BadRequestException("Username and password are required");
         }
 
     }

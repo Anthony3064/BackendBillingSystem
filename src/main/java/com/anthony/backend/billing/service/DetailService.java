@@ -5,10 +5,10 @@
 package com.anthony.backend.billing.service;
 
 import com.anthony.backend.billing.entity.Detail;
-import com.anthony.backend.billing.exception.BadRequestException;
-import com.anthony.backend.billing.exception.NotFoundException;
 import com.anthony.backend.billing.repository.DetailRepository;
 import com.anthony.backend.billing.service.implement.IDetail;
+import com.billing_system_model.exception.BadRequestException;
+import com.billing_system_model.exception.NotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
