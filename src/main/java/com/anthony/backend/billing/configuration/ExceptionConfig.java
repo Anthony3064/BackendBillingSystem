@@ -4,9 +4,10 @@
  */
 package com.anthony.backend.billing.configuration;
 
-import com.anthony.backend.billing.exception.BadRequestException;
 import com.anthony.backend.billing.exception.ErrorResponse;
-import com.anthony.backend.billing.exception.NotFoundException;
+import com.billing_system_model.exception.BadCredentialsException;
+import com.billing_system_model.exception.BadRequestException;
+import com.billing_system_model.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,6 +29,11 @@ public class ExceptionConfig {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponse> badRequestException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> badCredentialsException(Exception e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), e.getMessage()));
     }
 
 }
